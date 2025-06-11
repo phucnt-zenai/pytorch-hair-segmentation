@@ -31,10 +31,13 @@ class FigaroDataset(Dataset):
 
     def __getitem__(self,idx):
         img_path = self.img_path_list[idx]
-        img = Image.open(img_path)
+        #img = Image.open(img_path)
+        img = Image.open(image_path).convert('RGB')
+
 
         mask_path = self.mask_path_list[idx]
         mask = Image.open(mask_path)
+        
 
         if self.joint_transforms is not None:
             img, mask = self.joint_transforms(img, mask)

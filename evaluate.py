@@ -6,6 +6,7 @@ import os
 import sys
 import argparse
 from PIL import Image
+import torch.nn.functional as F
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from networks import get_network

@@ -127,20 +127,20 @@ if __name__ == '__main__':
             image_n = image_n * 0.5 +  mask_n * 0.5
 
             # log measurements
-            metric.update((logit, label))
-            durations.append(duration)
+            #metric.update((logit, label))
+            #durations.append(duration)
 
             # write overlay image
             cv2.imwrite(path,image_n)
 
 
     # compute measurements
-    iou = metric.compute_iou()
-    f = metric.compute_f1()
-    acc = metric.compute_accuracy()
-    avg_fps = sum(durations)/len(durations)
+    #iou = metric.compute_iou()
+    #f = metric.compute_f1()
+    #acc = metric.compute_accuracy()
+    #avg_fps = sum(durations)/len(durations)
 
-    print('Avg-FPS:', avg_fps)
-    print('Pixel-acc:', acc)
-    print('F1-score:', f)
-    print('IOU:', iou)
+    #print('Avg-FPS:', avg_fps)
+    #print('Pixel-acc:', acc)
+    #print('F1-score:', f)
+    #print('IOU:', iou)

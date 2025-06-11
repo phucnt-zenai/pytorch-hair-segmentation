@@ -17,8 +17,10 @@ class FigaroDataset(Dataset):
                                If True, returns img, mask, gray.
         """
         mode = 'Training' if train else 'Testing'
-        img_dir = os.path.join(root_dir, 'Original', mode)
-        mask_dir = os.path.join(root_dir, 'GT', mode)
+        #img_dir = os.path.join(root_dir, 'Original', mode)
+        #mask_dir = os.path.join(root_dir, 'GT', mode)
+        img_dir = root_dir
+        mask_dir = root_dir
 
         self.img_path_list = [os.path.join(img_dir, img) for img in sorted(os.listdir(img_dir))]
         self.mask_path_list = [os.path.join(mask_dir, mask) for mask in sorted(os.listdir(mask_dir))]

@@ -32,7 +32,7 @@ class FigaroDataset(Dataset):
     def __getitem__(self,idx):
         img_path = self.img_path_list[idx]
         #img = Image.open(img_path)
-        img = Image.open(image_path).convert('RGB')
+        img = Image.open(img_path).convert('RGB')
 
 
         mask_path = self.mask_path_list[idx]

@@ -124,7 +124,7 @@ if __name__ == '__main__':
             mask_n = mask_n[top:bottom, left:right, :]
 
             # addWeighted
-            image_n = image_n * 0.5 +  mask_n * 0.5
+            image_n = image_n * 0.7 +  mask_n * 0.3
 
             # log measurements
             #metric.update((logit, label))

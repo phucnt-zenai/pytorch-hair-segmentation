@@ -121,7 +121,7 @@ if __name__ == '__main__':
             left = delta_w // 2
             right = mw - (delta_w - left)
 
-            binary_mask = binary_mask[top:bottom, left:right]
+            binary_mask = mask_n[top:bottom, left:right]
 
             # Resize mask nếu cần
             if binary_mask.shape[:2] != image_n.shape[:2]:

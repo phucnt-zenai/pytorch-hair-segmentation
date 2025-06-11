@@ -121,17 +121,23 @@ if __name__ == '__main__':
             left = delta_w // 2
             right = mw - (delta_w - left)
 
-            mask_n = mask_n[top:bottom, left:right, :]
+            binary_mask = binary_mask[top:bottom, left:right]
 
-            # addWeighted
-            image_n = image_n * 0.7 +  mask_n * 0.3
+            # Resize mask nếu cần
+            if binary_mask.shape[:2] != image_n.shape[:2]:
+                binary_mask = cv2.resize(binary_mask, (image_n.shape[1], image_n.shape[0]), interpolation=cv2.INTER_NEAREST)
 
-            # log measurements
-            #metric.update((logit, label))
-            #durations.append(duration)
+            # Tạo colored mask
+            colored_mask = np.zeros_like(image_n, dtype=np.uint8)
+            colored_mask[:, :, 2] = 255  # Blue overlay
 
-            # write overlay image
-            cv2.imwrite(path,image_n)
+            alpha = 0.6  # độ trong suốt
+            blended = (image_n * (1 - binary_mask[:, :, None] * alpha) +
+                       colored_mask * (binary_mask[:, :, None] * alpha)).astype(np.uint8)
+
+            # Lưu ảnh
+            path = os.path.join(save_dir, "figaro_img_%04d.png" % i)
+            cv2.imwrite(path, blended)
 
 
     # compute measurements

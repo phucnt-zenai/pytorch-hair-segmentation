@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     assert os.path.exists(ckpt_dir)
     assert os.path.exists(data_dir)
-    assert os.path.exists(os.path.split(save_dir)[0])
+    #assert os.path.exists(os.path.split(save_dir)[0])
 
     if not os.path.exists(save_dir):
             os.mkdir(save_dir)

@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     ckpt_dir = args.ckpt_dir
     data_dir = args.data_dir
-    img_dir = os.path.join(data_dir, 'Original', 'Testing')
+    img_dir = data_dir
     network = args.networks.lower()
     save_dir = args.save_dir
     device = 'cuda' if args.use_gpu else 'cpu'
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     durations = list()
 
     # prepare images
-    imgs = [os.path.join(img_dir, k) for k in sorted(os.listdir(img_dir)) if k.endswith('.jpg')]
+    imgs = [os.path.join(img_dir, k) for k in sorted(os.listdir(img_dir))]
     with torch.no_grad():
         for i, (data, label) in enumerate(test_loader):
             print('[{:3d}/{:3d}] processing image... '.format(i+1, len(test_loader)))

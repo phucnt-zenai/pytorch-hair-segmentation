@@ -101,12 +101,12 @@ if __name__ == '__main__':
             # prepare mask
             pred = torch.sigmoid(logit.cpu())[0][0].data.numpy()
             mh, mw = data.size(2), data.size(3)
-            mask = pred >= 0.5
-
+            binary_mask = (pred >= 0.5).astype(np.uint8)
+            '''
             mask_n = np.zeros((mh, mw, 3))
             mask_n[:,:,0] = 255
             mask_n[:,:,0] *= mask
-
+            '''
             path = os.path.join(save_dir, "figaro_img_%04d.png" % i)
             image_n = cv2.imread(imgs[i])
 
@@ -121,7 +121,7 @@ if __name__ == '__main__':
             left = delta_w // 2
             right = mw - (delta_w - left)
 
-            binary_mask = mask_n[top:bottom, left:right]
+            binary_mask = binary_mask[top:bottom, left:right]
 
             # Resize mask nếu cần
             if binary_mask.shape[:2] != image_n.shape[:2]:

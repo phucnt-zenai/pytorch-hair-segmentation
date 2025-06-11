@@ -96,7 +96,7 @@ if __name__ == '__main__':
             duration = time.time() - start
 
             # Align logit size with label size before metric computation
-            logit = F.interpolate(logit, size=label.shape[2:], mode='bilinear', align_corners=False)
+            #logit = F.interpolate(logit, size=label.shape[2:], mode='bilinear', align_corners=False)
 
             # prepare mask
             pred = torch.sigmoid(logit.cpu())[0][0].data.numpy()

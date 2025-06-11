@@ -20,20 +20,23 @@ class MultiThresholdMeasures(Metric):
     def update(self, output):
         logit, y = output
         n = y.size(0)
-
+    
+        # Apply sigmoid then threshold at multiple levels
         y_pred = torch.sigmoid(logit)
-        y_pred = y_pred.view(n, -1, 1).repeat(1, 1, 11) > self._thrs
-        y = y.byte().view(n, -1, 1).repeat(1, 1, 11)
-
-        tp = y_pred * y == 1
-        tn = y_pred + y == 0
-        fp = y_pred - y == 1
-        fn = y - y_pred == 1
-
+        y_pred = y_pred.view(n, -1, 1).repeat(1, 1, 11) > self._thrs  # bool
+        y = y.bool().view(n, -1, 1).repeat(1, 1, 11)                   # bool
+    
+        # Calculate TP, TN, FP, FN using bitwise logic
+        tp = (y_pred & y)
+        tn = (~y_pred & ~y)
+        fp = (y_pred & ~y)
+        fn = (~y_pred & y)
+    
         self._tp += torch.sum(tp, dim=[0, 1]).float()
         self._tn += torch.sum(tn, dim=[0, 1]).float()
         self._fp += torch.sum(fp, dim=[0, 1]).float()
         self._fn += torch.sum(fn, dim=[0, 1]).float()
+
 
     def compute(self):
         # No-op, compute from individual accessors
